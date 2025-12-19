@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 # Set up the project
-get_filename_component(ProjectId ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-string(REPLACE " " "_" ProjectId ${ProjectId})
-project(project_id)
+project(indi_lx200generic)
 # INDI and OpenCV flags
 # Find pkg-config system tool
 # We need this tooling
@@ -37,28 +35,28 @@ set_target_properties(indidriver PROPERTIES
     IMPORTED_LOCATION /usr/local/lib/libindidriver.so
 )
 
-add_executable(project_id ${SRC}
+add_executable(lx200_generic ${SRC}
                           ${HDR}        # optional, just for IDEs
               )
 
 # --- Optional: add compile flags from INDI pkg-config ---
-target_compile_options(project_id PRIVATE ${INDI_CFLAGS_OTHER})
+target_compile_options(lx200_generic PRIVATE ${INDI_CFLAGS_OTHER})
 
 # --- Include directories ---
-target_include_directories(project_id PRIVATE
+target_include_directories(lx200_generic PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}  # your headers live here
     ${INDI_INCLUDE_DIRS}         # INDI includes
 )
 
 message(INFO "Link libs: ${INDI_LIBRARIES}")
-target_link_directories(project_id PRIVATE /usr/local/lib)
-target_link_libraries(project_id PRIVATE ${INDI_LIBRARIES} indidriver inovasdk )
+target_link_directories(lx200_generic PRIVATE /usr/local/lib)
+target_link_libraries(lx200_generic PRIVATE ${INDI_LIBRARIES} indidriver inovasdk )
 
 # create symlink AFTER the executable is built
-add_custom_command(TARGET project_id POST_BUILD
+add_custom_command(TARGET lx200_generic POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E create_symlink
-            $<TARGET_FILE:project_id>   # the actual executable
+            $<TARGET_FILE:lx200_generic>   # the actual executable
             ${CMAKE_BINARY_DIR}/indi_lx200_OnStep
-    COMMENT "Creating symbolic link to project_id"
+    COMMENT "Creating symbolic link to lx200_generic"
 )
 
