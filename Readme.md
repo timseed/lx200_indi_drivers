@@ -1,6 +1,8 @@
 # LX200 Driver build for Indi 
 
-This is how I built the LX200 drivers for indi/Ekos/KStars 
+This is how I built the LX200 drivers for indi/Ekos/KStars.
+
+You should get the source code from the official source as I took a copy (Dec 2025), in order to try and have a look at what was going on "inside the hood".
 
 # Why ?
 
